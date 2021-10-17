@@ -11,17 +11,11 @@ const transform: Transform = (fileInfo, api, options) => {
   const { jscodeshift: j } = api;
 
   const collection = j(fileInfo.source)
-    .find(
-      j.ImportDeclaration,
-      (node: ImportDeclaration) =>
-        node.source.value === 'styled-system' &&
-        node.specifiers?.some(isThemeGetImportSpecifier)
-    )
-    // .find(j.ImportDeclaration, {
-    //   source: { value: 'styled-system' },
-    //   specifiers: (specifiers: ImportSpecifier[]) =>
-    //     specifiers.some(isThemeGetImportSpecifier),
-    // })
+  // .find(j.ImportDeclaration, (node: ImportDeclaration) => (
+  //   node.source.value === 'styled-system' &&
+  //   node.specifiers?.some(isThemeGetImportSpecifier)
+  // ))
+    .find(j.ImportDeclaration, {source: {value: 'styled-system'}, specifiers: (specifiers: ImportSpecifier[]) => specifiers.some(isThemeGetImportSpecifier) })
     .replaceWith((path) => {
       const specifiersExceptThemeGet =
         path.node.specifiers?.filter(
@@ -42,6 +36,10 @@ const transform: Transform = (fileInfo, api, options) => {
         j.literal('@styled-system/theme-get')
       )
     );
+    collection.find(j.ImportDeclaration, (node: ImportDeclaration) => 
+      node.source.value === 'styled-system' &&
+      node.specifiers?.some((specifier) => specifier.type === 'ImportNamespaceSpecifier')
+    )
 
   return collection.toSource(printOptions);
 };

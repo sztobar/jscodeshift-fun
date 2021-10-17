@@ -1,18 +1,12 @@
-import { Options, Transform } from 'jscodeshift';
+// Type definitions for jscodeshift 0.11
+// Project: https://github.com/facebook/jscodeshift#readme
+// Definitions by: Brie Bunge <https://github.com/brieb>
+//                 Brian Jacobel <https://github.com/bjacobel>
+//                 Will Nguyen <https://github.com/willtn>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-declare module 'jscodeshift/dist/testUtils' {
+import core = require("./src/core");
 
-  type DefineTestOptions = Options;
-
-  type Parser = string;
-
-  interface TestOptions {
-    parser: Parser;
-  }
-
-  export function defineTest(dirName: string, transformName: string, options?: DefineTestOptions | null, testFilePrefix?: string, testOptions?: TestOptions): void;
-
-  export function defineInlineTest(module: Transform, options: TestOptions, input: string, expectedOutput: string, testName?: string): void;
-
-  export function defineSnapshotTest(module: Transform, options: TestOptions, input: string, testName?: string): void;
+declare module 'jscodeshift' {
 }

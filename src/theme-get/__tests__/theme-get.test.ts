@@ -1,4 +1,5 @@
-import { defineTest, defineInlineTest } from 'jscodeshift/dist/testUtils'
+// import { defineTest, defineInlineTest } from 'jscodeshift/dist/testUtils'
+import { defineInlineTest } from 'jscodeshift/src/testUtils'
 import transform from '../theme-get'
 
 jest.autoMockOff()
