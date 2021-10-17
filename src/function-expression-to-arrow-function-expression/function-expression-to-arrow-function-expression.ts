@@ -26,7 +26,7 @@
  * }
  */
 
-import { BlockStatement, ReturnStatement, Transform } from 'jscodeshift';
+import { ReturnStatement, Transform } from 'jscodeshift';
 import { ExpressionKind } from 'ast-types/gen/kinds';
 
 const transform: Transform = (file, api) => {
@@ -39,17 +39,18 @@ const transform: Transform = (file, api) => {
       // using the arrowFunctionExpression. As that could potentially have some unintended consequences.
       .filter((p) => j(p).find(j.ThisExpression).size() == 0)
       .replaceWith((p) => {
-        let body: BlockStatement | ExpressionKind = p.value.body;
+        const functionExpressionBody = p.value.body;
         // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
         // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
         const useExpression =
-          body.type == 'BlockStatement' &&
-          body.body.length == 1 &&
-          body.body[0].type == 'ReturnStatement';
-          
-        body = useExpression
-          ? ((body.body[0] as ReturnStatement).argument as ExpressionKind)
-          : body;
+          functionExpressionBody.type == 'BlockStatement' &&
+          functionExpressionBody.body.length == 1 &&
+          functionExpressionBody.body[0].type == 'ReturnStatement';
+
+        const body = useExpression
+          ? ((functionExpressionBody.body[0] as ReturnStatement)
+              .argument as ExpressionKind)
+          : functionExpressionBody;
 
         return j.arrowFunctionExpression(p.value.params, body, useExpression);
       })

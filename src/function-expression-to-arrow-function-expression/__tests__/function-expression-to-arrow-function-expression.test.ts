@@ -1,4 +1,4 @@
-import { defineInlineTest } from 'jscodeshift/dist/testUtils';
+import { defineInlineTest } from 'jscodeshift/src/testUtils';
 import transform from '../function-expression-to-arrow-function-expression';
 
 jest.autoMockOff();

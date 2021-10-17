@@ -1,4 +1,4 @@
-import { defineTest, defineInlineTest } from 'jscodeshift/dist/testUtils'
+import { defineTest, defineInlineTest } from 'jscodeshift/src/testUtils'
 import transform from '../reverse-identifiers'
 
 jest.autoMockOff()

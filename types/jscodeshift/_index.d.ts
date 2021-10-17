@@ -1,6 +1,6 @@
 import { Options, Transform } from 'jscodeshift';
 
-// declare module 'jscodeshift/dist/testUtils' {
+// declare module 'jscodeshift/src/testUtils' {
 
 //   type DefineTestOptions = Options;
 
