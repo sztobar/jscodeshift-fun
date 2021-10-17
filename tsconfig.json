@@ -1,0 +1,16 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": [
+      "types"
+    ],
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/__tests__",
+    "**/__testfixtures__"
+  ]
+}

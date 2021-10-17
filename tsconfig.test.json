@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["types", "node_modules/@types"],
+    "types": ["jest", "node"],
+    "esModuleInterop": true
+  },
+}
